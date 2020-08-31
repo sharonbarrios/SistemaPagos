@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReciboPago" language="groovy" pageWidth="612" pageHeight="396" columnWidth="587" leftMargin="15" rightMargin="10" topMargin="15" bottomMargin="15" uuid="0f5158e8-a95c-4637-a7c8-21e4affe1474">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nombre" class="java.lang.String"/>
+	<parameter name="grados" class="java.lang.String"/>
+	<parameter name="total" class="java.lang.String"/>
+	<parameter name="observaciones" class="java.lang.String"/>
+	<parameter name="id_recibo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha" class="java.lang.String"/>
+	<parameter name="Imagen" class="java.io.InputStream"/>
+	<parameter name="fondo" class="java.io.InputStream"/>
+	<queryString>
+		<![CDATA[SELECT ROW_NUMBER() OVER (ORDER BY r.id_detalle_recibo) as 'No', if(r.id_mes_pago=0,p.mes_pago,concat_ws(' ', r.concepto_pago, 
+p.mes_pago )) as 'Concepto', r.IMPORTE from detalle_recibo as r inner join meses_pago as p
+on r.id_mes_pago=p.id_mes_pago inner join forma_pago as f on r.id_forma_pago=f.id_forma_pago 
+where no_recibo=$P{id_recibo}
+UNION
+SELECT '' as 'No', 'MORA' AS MORA, sum(d.MORA) FROM detalle_recibo as d
+where no_recibo=$P{id_recibo} Having SUM(d.mora) >0]]>
+	</queryString>
+	<field name="No" class="java.lang.String"/>
+	<field name="Concepto" class="java.lang.String"/>
+	<field name="IMPORTE" class="java.math.BigDecimal"/>
+	<background>
+		<band height="366" splitType="Stretch">
+			<image isUsingCache="true" onErrorType="Blank">
+				<reportElement x="0" y="0" width="574" height="366" uuid="33f6cdbf-1c4e-4b53-931a-988c9d4a3877"/>
+				<imageExpression><![CDATA[$P{fondo}]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<pageHeader>
+		<band height="161" splitType="Stretch">
+			<staticText>
+				<reportElement x="212" y="15" width="181" height="40" forecolor="#000066" uuid="aaf81200-476c-4ab1-a8ee-947f7fcf454f"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Liceo Mixto San José]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="142" y="35" width="321" height="20" forecolor="#000066" uuid="bd28bf31-321d-4540-871d-877755ad19ef"/>
+				<text><![CDATA[3a Avenida 5-12 Zona 2 Aldea San José Villa Nueva, Guatemala.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="48" width="342" height="20" forecolor="#000066" uuid="d34f4571-848f-4880-b3d2-cb1b410f1b8f"/>
+				<text><![CDATA[Ley de Educación Nacional decreto legislativo No. 12-91 Nit:676917-9]]></text>
+			</staticText>
+			<rectangle radius="10">
+				<reportElement x="406" y="65" width="113" height="44" forecolor="#000066" uuid="c5df47e4-4321-4240-bca7-03f346f7b9c5"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="411" y="70" width="102" height="20" forecolor="#000066" uuid="6cd5a72f-dac6-464e-a12e-078978ede91e"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[RECIBO EXENTO]]></text>
+			</staticText>
+			<line>
+				<reportElement x="406" y="85" width="113" height="1" forecolor="#000066" uuid="9a830e02-7302-4027-85ea-3788eb6dc4cb"/>
+			</line>
+			<staticText>
+				<reportElement x="426" y="89" width="21" height="20" forecolor="#990000" uuid="4ef105f8-b3e9-4400-8b78-0e79deda9d89"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="41" y="115" width="135" height="20" forecolor="#000066" uuid="1a6d1506-a456-4410-8ed3-df52a0fabfd4"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Nombre del alumno:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="41" y="135" width="59" height="20" forecolor="#000066" uuid="60046629-8728-46eb-96ba-581bc4477ab6"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Del Grado:]]></text>
+			</staticText>
+			<image isUsingCache="true" onErrorType="Blank">
+				<reportElement x="62" y="15" width="80" height="68" uuid="61a07b02-aff7-4967-8968-4f6d32b90881"/>
+				<imageExpression><![CDATA[$P{Imagen}]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="153" y="130" width="366" height="1" forecolor="#000066" uuid="430614c0-f379-45dc-b4f2-e67abdfda026"/>
+			</line>
+			<line>
+				<reportElement x="100" y="150" width="419" height="1" forecolor="#000066" uuid="72952b02-3e16-4c00-96e3-f74ccf646d4a"/>
+			</line>
+			<textField>
+				<reportElement x="160" y="115" width="317" height="20" uuid="d5a07ddd-d26f-4235-8b43-9cf1f5d3d795"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="121" y="135" width="100" height="20" uuid="d17145fb-106a-4739-95d7-7643b6a1a89d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{grados}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="447" y="89" width="38" height="20" forecolor="#990000" uuid="b35073c7-6c07-408d-8e73-c647b3373e99"/>
+				<textElement textAlignment="Right">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{id_recibo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="95" y="2" width="40" height="20" uuid="c83aedfb-3302-499d-ab7a-d4c9348a6696"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="145" y="2" width="100" height="20" uuid="a05f8c83-b7ca-4147-b534-c75d6b6d7314"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONCEPTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="0" width="73" height="20" uuid="fd9986e3-77fe-4a08-bd52-f2e327a9427f"/>
+				<textElement textAlignment="Right">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IMPORTE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="95" y="1" width="43" height="15" uuid="113daec8-4eed-4247-a4b1-0cf2d1e7f47e"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{No}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="1" width="125" height="15" uuid="ed93f144-90f8-463e-8551-3c80940d0226"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Concepto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="0" width="73" height="15" uuid="de73bc3f-e46a-4283-a7b8-e2af2d8a86cd"/>
+				<textElement textAlignment="Right">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{IMPORTE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="95" splitType="Stretch">
+			<staticText>
+				<reportElement x="41" y="20" width="94" height="20" forecolor="#000066" uuid="0e47e076-647a-4841-8d46-6941afbc932d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Observaciones:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="41" y="40" width="135" height="20" forecolor="#000066" uuid="9e1245c6-bc5f-423e-b6c1-8f75e03c2f21"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[San José, Villa Nueva,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="41" y="62" width="305" height="11" forecolor="#000066" uuid="b828a675-41b3-4c96-805d-2c18553fe3a2"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Resolución administrativa No:.DDEGS/475-2015/STP/C.P.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="406" y="60" width="79" height="20" forecolor="#000066" uuid="39999c43-2327-4bb5-8235-d174532b4559"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Firma y Sello]]></text>
+			</staticText>
+			<line>
+				<reportElement x="127" y="35" width="392" height="1" forecolor="#000066" uuid="7a3f3b06-e045-4c59-89f0-bba75b2d2425"/>
+			</line>
+			<line>
+				<reportElement x="166" y="52" width="151" height="1" forecolor="#000066" uuid="5ea35885-2648-4fb0-807e-389a7cfa285c"/>
+			</line>
+			<line>
+				<reportElement x="360" y="60" width="159" height="1" forecolor="#000066" uuid="bf432aaa-fb93-4ee5-87d0-906c41b5329b"/>
+			</line>
+			<staticText>
+				<reportElement x="41" y="70" width="352" height="20" forecolor="#000066" uuid="499174ed-1fe6-470d-a36d-865df130e6a2"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Resolución de funcionamiento: 224-94-EP 23/11/1994 / 387-2004-A.S.E .19/04/2004]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="435" y="0" width="48" height="20" forecolor="#000066" uuid="28df1536-ea66-4226-b2b3-f5776fced30e"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Total Q.]]></text>
+			</staticText>
+			<line>
+				<reportElement x="477" y="15" width="42" height="1" forecolor="#000066" uuid="068f8ece-806f-49c2-ac30-1c725744c4a3"/>
+			</line>
+			<textField>
+				<reportElement x="127" y="20" width="356" height="20" uuid="4130f614-7afd-4796-9b84-4a9ae197dde7"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{observaciones}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="477" y="0" width="69" height="20" uuid="43deef74-370d-4b8a-bf04-5dd7b56f968f"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="166" y="36" width="164" height="20" uuid="176b7d19-75a6-4803-8aac-1317df3245c9"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

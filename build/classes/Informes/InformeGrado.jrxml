@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InformeGrado" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0f4f294b-cd95-4734-b1ed-b8bc9cca312d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_grado" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="grado" class="java.lang.String"/>
+	<parameter name="docente" class="java.lang.String"/>
+	<parameter name="ciclo" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Image" class="java.io.InputStream"/>
+	<queryString>
+		<![CDATA[select ROW_NUMBER() OVER (ORDER BY concat_ws(' ', a.primer_apellido, a.segundo_apellido) ASC) AS 'No', a.codigo_alumno,  concat_ws(' ', a.primer_apellido, 
+a.segundo_apellido , "," ,a.primer_nombre, a.segundo_nombre, a.tercer_nombre) as 'Nombre Completo' 
+from alumno as a
+inner join inscripciones as i
+on a.codigo_alumno=i.codigo_alumno where i.id_grado=$P!{id_grado}
+and i.ciclo_escolar=$P!{ciclo}]]>
+	</queryString>
+	<field name="No" class="java.math.BigInteger"/>
+	<field name="codigo_alumno" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Nombre Completo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="151" splitType="Stretch">
+			<staticText>
+				<reportElement x="216" y="78" width="168" height="30" uuid="4cacf6cb-a8b5-48b7-9336-833c9591f79d"/>
+				<textElement>
+					<font fontName="Arial Black" size="15"/>
+				</textElement>
+				<text><![CDATA[Listado de Alumnos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="177" y="37" width="249" height="28" uuid="76cc3df2-5b19-4326-81e0-73b14ca90e85"/>
+				<textElement>
+					<font fontName="Arial" size="18"/>
+				</textElement>
+				<text><![CDATA[Colegio Liceo Mixto San José]]></text>
+			</staticText>
+			<image>
+				<reportElement x="66" y="37" width="93" height="83" uuid="4699fd98-174e-482b-b89f-e51f39cd21f8"/>
+				<imageExpression><![CDATA[$P{Image}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement x="107" y="11" width="52" height="20" uuid="1bcf755d-743e-40b4-8f89-63494597844c"/>
+				<textElement>
+					<font fontName="Arial Black" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Grado:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="172" y="11" width="100" height="20" uuid="0a2dd51e-b17e-48bb-8b7b-ebbae677fc3f"/>
+				<textElement>
+					<font fontName="Arial" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{grado}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="160" y="30" width="291" height="1" uuid="4248d290-e802-485b-9178-3efd90551321"/>
+			</line>
+			<staticText>
+				<reportElement x="107" y="35" width="70" height="20" uuid="c21752b5-714e-43ef-8e99-ec45acf48f60"/>
+				<textElement>
+					<font fontName="Arial Black" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Docente:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="177" y="52" width="274" height="1" uuid="d2b7d435-b99e-465f-8ef5-fd56b826c544"/>
+			</line>
+			<textField>
+				<reportElement x="191" y="35" width="100" height="20" uuid="9d314914-153a-4d4f-9acb-150034101676"/>
+				<textElement>
+					<font fontName="Arial" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{docente}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="107" y="3" width="41" height="20" uuid="a9195cc4-47da-412e-87e2-ad1b984b9ca5"/>
+				<textElement>
+					<font fontName="Arial Black" size="12"/>
+				</textElement>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="148" y="3" width="124" height="20" uuid="c932aca2-3664-4484-a534-5ae6900f01db"/>
+				<textElement>
+					<font fontName="Arial Black" size="12"/>
+				</textElement>
+				<text><![CDATA[Código Alumno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="261" y="3" width="165" height="20" uuid="3b8b0d36-79eb-4e62-bc97-867edffc547e"/>
+				<textElement>
+					<font fontName="Arial Black" size="12"/>
+				</textElement>
+				<text><![CDATA[Nombre Completo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="107" y="0" width="41" height="20" uuid="9a1fa885-c4ac-4a4a-88cb-b9d4b4a45330"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{No}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="177" y="0" width="83" height="20" uuid="6e2b9f25-2f87-4639-9d60-c8c3b613dc98"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo_alumno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="0" width="244" height="20" uuid="9d2ee928-6813-4e96-970e-7e5a4d71fe2e"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Nombre Completo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="2" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="3" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

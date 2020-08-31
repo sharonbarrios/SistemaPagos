@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Recibo-Copia" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7b983a79-c0bd-4578-902b-06db9d256c2e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="241"/>
+	<parameter name="realPath" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="197" splitType="Stretch">
+			<staticText>
+				<reportElement x="204" y="0" width="181" height="40" forecolor="#000066" uuid="c79076db-9d96-4914-8f36-5fd84034b26a"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Liceo Mixto San José]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="152" y="45" width="321" height="20" forecolor="#000066" uuid="250ed068-0ce4-47c7-b039-85743a0b60ee"/>
+				<text><![CDATA[3a Avenida 5-12 Zona 2 Aldea San José Villa Nueva, Guatemala.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="145" y="60" width="342" height="20" forecolor="#000066" uuid="2381199e-4b9f-46d7-abc3-c74c461794b6"/>
+				<text><![CDATA[Ley de Educación Nacional decreto legislativo No. 12-91 Nit:676917-9]]></text>
+			</staticText>
+			<image>
+				<reportElement x="72" y="17" width="80" height="68" uuid="21fdabb5-8b16-459e-a712-37ab7e1a4b76"/>
+				<imageExpression><![CDATA[C:\Users\maritza\Desktop\SistemaColegio12 - copia\src\Vista\imagenes\LogoRecibo.jpg]]></imageExpression>
+			</image>
+			<rectangle radius="10">
+				<reportElement x="416" y="85" width="113" height="44" forecolor="#000066" uuid="f083618e-4bff-4dc8-a818-731227b86156"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="51" y="135" width="126" height="20" forecolor="#000066" uuid="a7875bb8-5ed6-481d-8f6d-e4e3f2291281"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Nombre del alumno:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="51" y="155" width="59" height="20" forecolor="#000066" uuid="398e8510-b5fc-4bab-ac54-0dc61ebc9576"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Del Grado:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="421" y="89" width="102" height="20" forecolor="#000066" uuid="da122881-cf8b-4273-a0d9-235bb13f867b"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[RECIBO EXENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="425" y="109" width="21" height="20" forecolor="#FF0000" uuid="a8291e8b-f6c7-402f-a47a-3db5074edc1a"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="70" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="66" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="112" splitType="Stretch">
+			<staticText>
+				<reportElement x="51" y="21" width="80" height="20" forecolor="#000066" uuid="2cf660a6-9a9c-4d57-b551-407b96baed74"/>
+				<text><![CDATA[Observaciones:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="51" y="40" width="112" height="20" forecolor="#000066" uuid="ef32eecd-926a-41c5-ae99-f98b2767007c"/>
+				<text><![CDATA[San José, Villa Nueva,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="56" width="305" height="20" forecolor="#000066" uuid="ebef2657-ae07-484d-acc0-f8b9cb3223b2"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Resolución administrativa No:.DDEGS/475-2015/STP/C.P.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="76" width="305" height="20" forecolor="#000066" uuid="7c0e1c27-2015-4e9c-b2c7-5ed8c011fae5"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Resolución de funcionamiento: 224-94-EP 23/11/1994 / 387-2004-A.S.E .19/04/2004]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="429" y="76" width="71" height="20" forecolor="#000066" uuid="44e3a8df-285b-4895-a007-8e62fd1d3793"/>
+				<text><![CDATA[Firma y Sello]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="193" y="41" width="15" height="20" forecolor="#000066" uuid="6eb1e635-1087-4c04-953d-38f3d9a84906"/>
+				<text><![CDATA[de]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="41" width="14" height="20" forecolor="#000066" uuid="dce2e1de-7de9-45a2-b129-53eea45043c2"/>
+				<text><![CDATA[de]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

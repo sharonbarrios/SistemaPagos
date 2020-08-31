@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InformeGrado" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0f4f294b-cd95-4734-b1ed-b8bc9cca312d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_grado" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="grado" class="java.lang.String"/>
+	<parameter name="docente" class="java.lang.String"/>
+	<parameter name="ciclo" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Image" class="java.io.InputStream"/>
+	<parameter name="anio" class="java.lang.String"/>
+	<parameter name="Nombre" class="java.lang.String"/>
+	<parameter name="mes" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select i.codigo_alumno, concat_ws(' ', a.primer_nombre, a.segundo_nombre, a.tercer_nombre, a.primer_apellido, a.segundo_apellido) as 'nombre_alumno', IF(g.id_nivel!=1, 
+concat_ws(' ', g.grado,s.nivel), g.grado) as 'grado', 
+if(i.id_mes_pago=0,p.mes_pago,concat_ws(' ', 'Colegiatura',
+p.mes_pago )) as 'Concepto', i.saldo, ' ' as 'Total',
+i.id_grado, i.id_mes_pago from insolvente as i
+inner join inscripciones as n on i.codigo_alumno=n.codigo_alumno and i.id_grado=n.id_grado
+inner join meses_pago as p on 
+i.id_mes_pago=p.id_mes_pago
+inner join alumno as a on  n.codigo_alumno=a.codigo_alumno
+inner join grado as g on n.id_grado=g.id_grado
+inner join nivel as s on 
+g.id_nivel=s.id_nivel
+where i.ciclo_escolar=$P!{anio} and i.id_mes_pago between 0 and $P!{mes}
+union
+select i.codigo_alumno, '' as 'primer_nombre', '' as 'grado', 'Total' as 
+'Concepto', '' as 'Saldo', 
+CONVERT(sum(i.saldo)USING utf8) as 'Total', i.id_grado, '11' as 'id_mes_pago'
+from insolvente as i
+inner join inscripciones as n on 
+i.codigo_alumno=n.codigo_alumno and i.id_grado=n.id_grado
+where i.ciclo_escolar=$P!{anio} and i.id_mes_pago between 0 and $P!{mes}
+group by i.codigo_alumno
+order by  id_grado asc, 
+codigo_alumno, cast(id_mes_pago as unsigned integer)]]>
+	</queryString>
+	<field name="No" class="java.math.BigInteger"/>
+	<field name="codigo_alumno" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Nombre Completo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="151" splitType="Stretch">
+			<staticText>
+				<reportElement x="172" y="90" width="264" height="30" uuid="4cacf6cb-a8b5-48b7-9336-833c9591f79d"/>
+				<textElement>
+					<font fontName="Arial Black" size="15"/>
+				</textElement>
+				<text><![CDATA[Listado de Alumnos Insolventes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="177" y="37" width="249" height="28" uuid="76cc3df2-5b19-4326-81e0-73b14ca90e85"/>
+				<textElement>
+					<font fontName="Arial" size="18"/>
+				</textElement>
+				<text><![CDATA[Colegio Liceo Mixto San José]]></text>
+			</staticText>
+			<image>
+				<reportElement x="66" y="37" width="93" height="83" uuid="4699fd98-174e-482b-b89f-e51f39cd21f8"/>
+				<imageExpression><![CDATA[$P{Image}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="260" y="120" width="100" height="20" uuid="00165669-4635-4814-97f3-607e44b57984"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{anio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement x="31" y="28" width="284" height="25" uuid="1bcf755d-743e-40b4-8f89-63494597844c"/>
+				<textElement>
+					<font fontName="Arial" size="16" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Alumnos Insolventes hasta el mes de:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="315" y="28" width="204" height="25" uuid="1aaf9149-da12-47c2-a6bc-57ab82e4e9e3"/>
+				<textElement textAlignment="Left">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="2" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="3" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
